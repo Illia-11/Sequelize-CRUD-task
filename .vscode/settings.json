@@ -1,0 +1,14 @@
+{
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "sequelize-crud-task",
+      "database": "sequelize-CRUD-task",
+      "username": "postgres",
+      "password": "postgres"
+    }
+  ]
+}
