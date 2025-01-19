@@ -1,0 +1,10 @@
+POST http://localhost:3000/cars
+Content-Type: application/json
+
+{
+  "model": "Honda",
+  "manufacturer": "Japan",
+  "modelYear": 2015,
+  "isNew": true,
+  "price": 123456
+}

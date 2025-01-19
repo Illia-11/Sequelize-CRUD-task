@@ -1,0 +1,6 @@
+PUT http://localhost:3000/cars/4
+Content-Type: application/json
+
+{
+  "price": 5431432
+}

@@ -1,0 +1,10 @@
+POST http://localhost:3000/books
+Content-Type: application/json
+
+{
+  "model": "",
+  "manufacturer": "America",
+  "modelYear": 1799,
+  "isNew": false,
+  "price": -12000
+},
