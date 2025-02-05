@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Car extends Model {
     /**
@@ -11,51 +9,68 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Car.hasMany(models.CarPictures, {
+        as: "car_pictures",
+        foreignKey: "carId",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
+
+      Car.belongsToMany(models.Dealerships, {
+        as: "dealerships",
+        through: "cars_to_dealerships",
+        foreignKey: "carId",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
     }
   }
-  Car.init({
-    model: {
-      type: DataTypes.STRING(128),
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-        notNull: true,
-      }
+  Car.init(
+    {
+      model: {
+        type: DataTypes.STRING(128),
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          notNull: true,
+        },
+      },
+      manufacturer: {
+        type: DataTypes.STRING(256),
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          notNull: true,
+        },
+      },
+      modelYear: {
+        type: DataTypes.DECIMAL(4, 0),
+        allowNull: false,
+        field: "model_year",
+        validate: {
+          isNumeric: true,
+          min: 1800,
+        },
+      },
+      isNew: {
+        type: DataTypes.BOOLEAN,
+        field: "is_new",
+      },
+      price: {
+        type: DataTypes.DECIMAL(9, 2),
+        allowNull: false,
+        validate: {
+          isNumeric: true,
+          min: 0,
+        },
+      },
     },
-    manufacturer: {
-      type: DataTypes.STRING(256),
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-        notNull: true,
-      }
-    },
-    modelYear: {
-      type: DataTypes.DECIMAL(4,0),
-      allowNull: false,
-      field: 'model_year',
-      validate: {
-        isNumeric: true,
-        min: 1800
-      }
-    },
-    isNew: {
-      type: DataTypes.BOOLEAN,
-      field: 'is_new'
-    },
-    price: {
-      type: DataTypes.DECIMAL(9,2),
-      allowNull: false,
-      validate: {
-        isNumeric: true,
-        min: 0
-      }
+    {
+      sequelize,
+      modelName: "Car",
+      tableName: "cars",
+      underscored: true,
     }
-  }, {
-    sequelize,
-    modelName: 'Car',
-    tableName: 'cars',
-    underscored: true
-  });
+  );
   return Car;
 };
